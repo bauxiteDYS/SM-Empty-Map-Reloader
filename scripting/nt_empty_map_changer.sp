@@ -5,24 +5,27 @@ public Plugin myinfo =
 	name        = "NT Empty Map Changer",
 	author      = "Rain, bauxite",
 	description = "Changes to nextmap when server is empty to prevent issues",
-	version     = "0.1.0",
+	version     = "0.1.1",
 };
 
 public void OnPluginStart()
 {
-    CreateTimer(2341.0, Timer_RotateMapIfEmptyServer, _, TIMER_REPEAT);
+	CreateTimer(2341.0, Timer_RotateMapIfEmptyServer, _, TIMER_REPEAT);
 }
 
 public Action Timer_RotateMapIfEmptyServer(Handle timer, any data)
 {
-    if (GetNumPlayers() == 0)
-    {
-        char nextmap[PLATFORM_MAX_PATH];
-        if (!GetNextMap(nextmap, sizeof(nextmap)))
-        {
-            ThrowError("Failed to get next map");
-        }
-        ForceChangeLevel(nextmap, "Rotate map due to empty server.");
-    }
-    return Plugin_Continue;
+	int Count = GetClientCount(true);
+	
+	if (Count <= 1)
+	{
+		char nextmap[PLATFORM_MAX_PATH];
+		if (!GetNextMap(nextmap, sizeof(nextmap)))
+		{
+		ThrowError("Failed to get next map");
+		}
+		ForceChangeLevel(nextmap, "Rotate map due to empty server.");
+	}
+	return Plugin_Continue;
 }
+
