@@ -2,10 +2,10 @@
 
 public Plugin myinfo =
 {
-	name        = "NT Empty Map Changer",
+	name        = "Empty Map Changer",
 	author      = "Rain, bauxite",
 	description = "Changes to nextmap when server is empty to prevent issues",
-	version     = "0.1.1",
+	version     = "0.1.2",
 };
 
 public void OnPluginStart()
