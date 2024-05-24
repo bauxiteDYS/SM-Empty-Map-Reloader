@@ -7,13 +7,17 @@ public Plugin myinfo =
 	name        = "NT Server Restart and Map Changer",
 	author      = "Rain, bauxite",
 	description = "Changes to nextmap when server is empty to prevent issues but also restarts periodically",
-	version     = "0.1.0.R",
+	version     = "0.1.1.R",
 };
 
 public void OnPluginStart()
 {
-	CreateTimer(2341.0, Timer_RotateMapIfEmptyServer, _, TIMER_REPEAT);
 	CheckCount = 0;
+}
+
+public void OnMapStart()
+{
+	CreateTimer(2341.0, Timer_RotateMapIfEmptyServer, _, TIMER_REPEAT | TIMER_FLAG_NO_MAPCHANGE);
 }
 
 public Action Timer_RotateMapIfEmptyServer(Handle timer, any data)
