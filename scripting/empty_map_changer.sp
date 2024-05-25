@@ -56,12 +56,12 @@ public Action Timer_RotateMapIfEmptyServer(Handle timer, any data)
 
 void ChangeLevel()
 {
-		char nextmap[PLATFORM_MAX_PATH];
+	char nextmap[PLATFORM_MAX_PATH];
 
-		if (!GetNextMap(nextmap, sizeof(nextmap)))
-		{
-			ThrowError("Failed to get next map");
-		}
+	if (!GetNextMap(nextmap, sizeof(nextmap)))
+	{
+		ThrowError("Failed to get next map");
+	}
 
-		ForceChangeLevel(nextmap, "Empty server.");
+	ForceChangeLevel(nextmap, "Empty server.");
 }
