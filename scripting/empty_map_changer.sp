@@ -8,7 +8,7 @@ public Plugin myinfo =
 	name        = "Empty Map Changer",
 	author      = "bauxite, rain",
 	description = "Changes to nextmap when server is empty to prevent issues",
-	version     = "0.1.6",
+	version     = "0.1.7",
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
@@ -37,8 +37,10 @@ public void OnMapStart()
 		
 		CreateTimer(3.0, Timer_ChangeLevel, _, TIMER_FLAG_NO_MAPCHANGE);
 	}
-		
-	CreateTimer(2341.0, Timer_RotateMapIfEmptyServer, _, TIMER_REPEAT | TIMER_FLAG_NO_MAPCHANGE);
+	else
+	{	
+		CreateTimer(2341.0, Timer_RotateMapIfEmptyServer, _, TIMER_REPEAT | TIMER_FLAG_NO_MAPCHANGE);
+	}
 }
 
 public Action Timer_ChangeLevel(Handle timer, any data)
