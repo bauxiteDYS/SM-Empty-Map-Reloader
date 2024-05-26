@@ -8,7 +8,7 @@ public Plugin myinfo =
 	name        = "Empty Map Changer",
 	author      = "bauxite, rain",
 	description = "Changes to nextmap when server is empty to prevent issues",
-	version     = "0.1.7",
+	version     = "0.1.9",
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
@@ -45,7 +45,10 @@ public void OnMapStart()
 
 public Action Timer_ChangeLevel(Handle timer, any data)
 {
-	ChangeLevel();
+	char mapName[32];
+	GetCurrentMap(mapName, sizeof(mapName));
+		
+	ForceChangeLevel(mapName, "First map");
 
 	return Plugin_Stop;
 }
