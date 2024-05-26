@@ -6,9 +6,9 @@ bool g_lateLoad;
 public Plugin myinfo =
 {
 	name        = "Empty Map Changer",
-	author      = "Rain, bauxite",
+	author      = "bauxite, rain",
 	description = "Changes to nextmap when server is empty to prevent issues",
-	version     = "0.1.5",
+	version     = "0.1.6",
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
@@ -34,10 +34,18 @@ public void OnMapStart()
 	if(g_firstStart)
 	{
 		g_firstStart = false;
-		ChangeLevel();
+		
+		CreateTimer(3.0, Timer_ChangeLevel, _, TIMER_FLAG_NO_MAPCHANGE);
 	}
 		
 	CreateTimer(2341.0, Timer_RotateMapIfEmptyServer, _, TIMER_REPEAT | TIMER_FLAG_NO_MAPCHANGE);
+}
+
+public Action Timer_ChangeLevel(Handle timer, any data)
+{
+	ChangeLevel();
+
+	return Plugin_Stop;
 }
 
 public Action Timer_RotateMapIfEmptyServer(Handle timer, any data)
@@ -48,7 +56,7 @@ public Action Timer_RotateMapIfEmptyServer(Handle timer, any data)
 	{
 		ChangeLevel();
 
-		return Plugin_Handled;
+		return Plugin_Stop;
 	}
 
 	return Plugin_Continue;
