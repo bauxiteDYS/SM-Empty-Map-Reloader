@@ -5,10 +5,10 @@ bool g_lateLoad;
 
 public Plugin myinfo =
 {
-	name        = "Empty Map Changer",
+	name        = "Empty Server map reloader",
 	author      = "bauxite, rain",
-	description = "Changes to nextmap when server is empty to prevent issues",
-	version     = "0.1.9",
+	description = "Reloads current map when server is empty to prevent issues",
+	version     = "0.2.0",
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
@@ -35,46 +35,37 @@ public void OnMapStart()
 	{
 		g_firstStart = false;
 		
-		CreateTimer(3.0, Timer_ChangeLevel, _, TIMER_FLAG_NO_MAPCHANGE);
+		CreateTimer(3.0, Timer_ReloadMap, _, TIMER_FLAG_NO_MAPCHANGE);
 	}
 	else
 	{	
-		CreateTimer(2341.0, Timer_RotateMapIfEmptyServer, _, TIMER_REPEAT | TIMER_FLAG_NO_MAPCHANGE);
+		CreateTimer(2341.0, Timer_ReloadMapIfEmptyServer, _, TIMER_REPEAT | TIMER_FLAG_NO_MAPCHANGE);
 	}
 }
 
-public Action Timer_ChangeLevel(Handle timer, any data)
+public Action Timer_ReloadMap(Handle timer, any data)
 {
-	char mapName[32];
-	GetCurrentMap(mapName, sizeof(mapName));
-		
-	ForceChangeLevel(mapName, "First map");
-
+	ReloadLevel();
 	return Plugin_Stop;
 }
 
-public Action Timer_RotateMapIfEmptyServer(Handle timer, any data)
+public Action Timer_ReloadMapIfEmptyServer(Handle timer, any data)
 {
 	int playerCount = GetClientCount(true);
 	
 	if (playerCount <= 1)
 	{
-		ChangeLevel();
-
+		ReloadLevel();
 		return Plugin_Stop;
 	}
 
 	return Plugin_Continue;
 }
 
-void ChangeLevel()
+void ReloadLevel()
 {
-	char nextmap[PLATFORM_MAX_PATH];
+	char mapName[32];
+	GetCurrentMap(mapName, sizeof(mapName));
 
-	if (!GetNextMap(nextmap, sizeof(nextmap)))
-	{
-		ThrowError("Failed to get next map");
-	}
-
-	ForceChangeLevel(nextmap, "Empty server.");
+	ForceChangeLevel(mapName, "Empty server");
 }
