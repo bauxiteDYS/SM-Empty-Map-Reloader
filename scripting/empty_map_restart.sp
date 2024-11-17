@@ -22,14 +22,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 
 public void OnPluginStart()
 {
-	if(g_lateLoad)
-	{
-		g_firstStart = false;
-	}
-	else
-	{
-		g_firstStart = true;
-	}
+	g_firstStart = g_lateLoad ? false : true;
 }
 
 public void OnMapStart()
@@ -78,6 +71,5 @@ void ReloadLevel()
 {
 	char mapName[32];
 	GetCurrentMap(mapName, sizeof(mapName));
-
 	ForceChangeLevel(mapName, "Empty server");
 }
