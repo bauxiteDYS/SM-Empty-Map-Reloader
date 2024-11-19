@@ -53,7 +53,7 @@ public Action Timer_ReloadMapIfEmptyServer(Handle timer, any data)
 
 void ReloadLevel()
 {
-	char mapName[32];
+	char mapName[64];
 	GetCurrentMap(mapName, sizeof(mapName));
 
 	ForceChangeLevel(mapName, "Empty server");
