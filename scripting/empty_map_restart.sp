@@ -3,7 +3,6 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-bool g_lateLoad;
 bool g_firstStart;
 int g_checkCount;
 
@@ -11,18 +10,13 @@ public Plugin myinfo = {
 	name = "Server restart and Map reloader",
 	author = "bauxite, rain",
 	description = "Reloads current map when server is empty to prevent issues, also restarts periodically",
-	version = "0.3.0",
+	version = "0.3.1",
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
-	g_lateLoad = late;
+	g_firstStart = !late;
 	return APLRes_Success;
-}
-
-public void OnPluginStart()
-{
-	g_firstStart = g_lateLoad ? false : true;
 }
 
 public void OnMapStart()
