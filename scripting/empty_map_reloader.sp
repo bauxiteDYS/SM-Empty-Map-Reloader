@@ -7,7 +7,7 @@ bool g_firstStart;
 bool g_lateLoad;
 
 public Plugin myinfo = {
-	name = "Empty Server map reloader",
+	name = "Empty server map reloader",
 	author = "bauxite, rain",
 	description = "Reloads current map when server is empty to prevent issues",
 	version = "0.2.0",
@@ -66,7 +66,7 @@ public Action Timer_ReloadMapIfEmptyServer(Handle timer, any data)
 
 void ReloadLevel()
 {
-	char mapName[32];
+	char mapName[64];
 	GetCurrentMap(mapName, sizeof(mapName));
 
 	ForceChangeLevel(mapName, "Empty server");
