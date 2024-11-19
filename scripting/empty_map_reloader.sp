@@ -1,14 +1,16 @@
 #include <sourcemod>
 
+#pragma semicolon 1
+#pragma newdecls required
+
 bool g_firstStart;
 bool g_lateLoad;
 
-public Plugin myinfo =
-{
-	name        = "Empty Server map reloader",
-	author      = "bauxite, rain",
+public Plugin myinfo = {
+	name = "Empty Server map reloader",
+	author = "bauxite, rain",
 	description = "Reloads current map when server is empty to prevent issues",
-	version     = "0.2.0",
+	version = "0.2.0",
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
