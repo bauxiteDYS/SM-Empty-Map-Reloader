@@ -8,7 +8,7 @@ bool g_firstStart;
 int g_checkCount;
 
 public Plugin myinfo = {
-	name = "Server testart and Map reloader",
+	name = "Server restart and Map reloader",
 	author = "bauxite, rain",
 	description = "Reloads current map when server is empty to prevent issues, also restarts periodically",
 	version = "0.3.0",
@@ -30,7 +30,6 @@ public void OnMapStart()
 	if(g_firstStart)
 	{
 		g_firstStart = false;
-		
 		CreateTimer(3.0, Timer_ReloadMap, _, TIMER_FLAG_NO_MAPCHANGE);
 	}
 	else
@@ -48,12 +47,11 @@ public Action Timer_ReloadMap(Handle timer, any data)
 public Action Timer_ReloadMapIfEmptyServer(Handle timer, any data)
 {
 	++g_checkCount;
-	
 	int playerCount = GetClientCount(true);
 	
 	if (playerCount <= 1)
 	{
-		if(g_checkCount <= 11)
+		if(g_checkCount <= 9)
 		{
 			ReloadLevel();
 			return Plugin_Stop;
@@ -69,7 +67,7 @@ public Action Timer_ReloadMapIfEmptyServer(Handle timer, any data)
 
 void ReloadLevel()
 {
-	char mapName[32];
+	char mapName[64];
 	GetCurrentMap(mapName, sizeof(mapName));
 	ForceChangeLevel(mapName, "Empty server");
 }
