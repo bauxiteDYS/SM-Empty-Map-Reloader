@@ -10,7 +10,7 @@ public Plugin myinfo = {
 	name = "Server restart and Map reloader",
 	author = "bauxite, rain",
 	description = "Reloads current map when server is empty to prevent issues, also restarts periodically",
-	version = "0.3.1",
+	version = "0.3.2",
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
@@ -45,7 +45,7 @@ public Action Timer_ReloadMapIfEmptyServer(Handle timer, any data)
 	
 	if (playerCount <= 1)
 	{
-		if(g_checkCount <= 9)
+		if(g_checkCount <= 5)
 		{
 			ReloadLevel();
 			return Plugin_Stop;
